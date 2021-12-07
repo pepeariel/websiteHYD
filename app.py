@@ -14,5 +14,5 @@ cores = {'fundo':'#242A44',
          'cinza': '#fafafa',
          'preto': '#000000',
          'cinza-escuro': '#DCDCDC',
-         'azul-marinho':'#99AEBB'
+         'azul-marinho':'#1E14EA'
          }

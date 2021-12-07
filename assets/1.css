@@ -48,12 +48,13 @@
 }
 
 #sensor1_text{
-
   font-family: Raleway, arial, Sans-Serif;
   color: rgb(94, 94, 94);
-
   font-size: 16px;
-  width: 90%
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 #sensor1_image{
@@ -75,15 +76,8 @@
   line-height: 1.25;
 }
 
-#sensor2_text{
-  font-family: Raleway, arial, Sans-Serif;
-  color: rgb(94, 94, 94);
-  text-align:center;
-  font-size: 16px;
-}
-
 #sensor2_image{
-    width: 80%;
+    width: 100%;
     text-align: center;
     height: auto;
     margin-right: auto;
@@ -92,3 +86,12 @@
     margin: 0 auto;
 }
 
+#copyright{
+    margin-right: auto;
+    margin-left: auto;
+    font-family: Raleway, arial, Sans-Serif;
+    color: black;
+    left: 50%;
+    font-size: 10px;
+    line-height: 1;
+}

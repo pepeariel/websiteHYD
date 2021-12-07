@@ -17,9 +17,21 @@ def dashboard (db, titulo):
         else:
             cor_do_indicador = '#69A753'
 
-        fig1 = px.line(db, x='Data_id', y='Pressao',
-                       title=f'{titulo}', height=300)
-        fig1.update_traces(line_color='#1EAFE3', hoverlabel_font_color='#FFFFFF')
+        # fig1 = px.line(db, x='Data_id', y='Pressao',
+        #                title=f'{titulo}', height=300)
+        # fig1.update_traces(line_color='#1EAFE3', hoverlabel_font_color='#FFFFFF')
+        #
+        # fig1.update_layout(
+        #     plot_bgcolor=cores['branco'],  # Cor das linhas do grafico
+        #     paper_bgcolor=cores['branco'],  # Cor da moldura
+        #     font_color=cores['preto'],
+        #     xaxis_title="Data",
+        #     yaxis_title="Pressão [mca]",
+        # )
+
+        fig1 = go.Figure(go.Scatter(x=db['Data_id'],y=db['Pressao'], fill='tozeroy',mode= 'lines'))
+
+        fig1.update_traces(line_color='#14ACEA', hoverlabel_font_color='#FFFFFF')
 
         fig1.update_layout(
             plot_bgcolor=cores['branco'],  # Cor das linhas do grafico
@@ -39,7 +51,7 @@ def dashboard (db, titulo):
         pressao.update_layout(
             plot_bgcolor=cores['branco'],  # cor das linhas do grafico
             paper_bgcolor=cores['branco'],  # Cor da moldura
-            font_color=cores['azul'],
+            font_color=cores['preto'],
             xaxis_title="Mês",
             yaxis_title="Pressão [mca]",
         )

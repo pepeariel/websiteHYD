@@ -89,25 +89,27 @@ pag_inicial = html.Div([dbc.Row([
             html.Br(),
             html.H2('Alcance', id='sensor1_title'),
             html.Br(),
-            html.Span('''
-            Nossos sensores de pressão foram desenvolvidos 
-            com o que há de mais novo no mercado tecnologia iot.
-            O sistema de comunicação via radio frequência Lora e/ou 3g para atender os clientes 
+            html.H4('''
+            Os sensores de pressão foram desenvolvidos 
+            com tecnologia iot de última geração.
+            O sistema de comunicação com cobertura via radio frequência Lora e 3g atende os clientes 
             mais distantes.
             ''',id='sensor1_text'),
+            html.Br(),
 
                 ],className='figura1')
     ],lg={'size':6}),
     dbc.Col([
         html.Div([
-            html.Img(src=app.get_asset_url('sensor2.jpeg'),id='sensor2_image'),
+            html.Img(src=app.get_asset_url('sensor2.jpeg'),id='sensor1_image'),
             html.Br(),
             html.H2('Durabilidade', id='sensor2_title'),
             html.Br(),
-            html.Span('''
-            Utilizamos baterias de lítio ou painéis solares como fontes de alimentação para nossos sensores, 
-            dessa forma asseguramos uma maior vida útil e sustentabilidade aos projetos.
-            ''',id= 'sensor2_text')
+            html.H4('''
+            Com o uso de baterias de lítio e painéis solares como fontes de alimentação 
+            asseguramos uma maior vida útil e sustentabilidade aos projetos.
+            ''',id= 'sensor1_text'),
+            html.Br(),
 
                 ],className='figura2')
     ],lg={'size':6})
@@ -117,26 +119,40 @@ pag_inicial = html.Div([dbc.Row([
             html.Br(),
             html.Img(src=app.get_asset_url('mapa.jpeg'),id='sensor1_image'),
             html.Br(),
-            html.Span('''
-            Mapa indicando os sensores instalados e valor de pressão em tempo real
-            ''',id= 'sensor2_text'),
+            html.H2('Mapa', id='sensor2_title'),
             html.Br(),
-            dbc.Button('Mapa',n_clicks=0,href='/Mapas',id='botao_mapa',outline=True, color='primary',style={'textAlign': 'center','width': '50%','margin-left':'25%'}),
+            html.H4('''
+            Mapa indicando os sensores instalados e valor de pressão em tempo real.
+            ''',id= 'sensor1_text'),
+            html.Br(),
+            dbc.Button('Mapa',n_clicks=0,href='/Mapas',id='botao_mapa',outline=True, color='success',style={'textAlign': 'center','width': '50%','margin-left':'25%'}),
             html.Br()
         ],lg={'size':6}),
         dbc.Col([
             html.Br(),
-            html.Img(src=app.get_asset_url('dashboard.png'),id='sensor1_image'),
+            html.Img(src=app.get_asset_url('dashboard2.png'),id='sensor2_image'),
             html.Br(),
-            html.Span('''
-            Dashboard gerencial contendo os principais indicadores sobre a rede de água
-            ''',id= 'sensor2_text'),
+            html.H2('Dashboard', id='sensor2_title'),
             html.Br(),
-            dbc.Button('dashboard',n_clicks=0,href='/Espinheiros',id='botao_dashboard',outline=True, color='primary',style={'textAlign': 'center','width': '50%','margin-left':'25%'}),
-
+            html.H4('''
+            Painel gerencial contendo os principais indicadores sobre a rede de água.
+            ''',id= 'sensor1_text'),
+            html.Br(),
+            dbc.Button('Dashboard',n_clicks=0,href='/Espinheiros',id='botao_dashboard',outline=True, color='primary',style={'textAlign': 'center','width': '50%','margin-left':'25%'}),
+            html.Br(),
         ],lg={'size':6})
 
-    ])
+    ]),
+
+    dbc.Row([
+        html.Div([
+        html.Br(),
+        html.Br(),
+        html.H6('COPYRIGHT © 2021 HYD – TODOS OS DIREITOS RESERVADOS.',id='copyright'),
+        html.Br(),
+                ])
+
+            ])
 ])
 
 # Callback para saber qual usuario esta ativo
