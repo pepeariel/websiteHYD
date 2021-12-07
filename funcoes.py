@@ -5,27 +5,7 @@ from app import cores
 import pandas as pd
 
 
-def arrumadb (db, value, titulo):
-    if value == 'minima':
-        pressao_atual = db['Pressao'].min()
-        db['linha'] = pressao_atual
-        return dashboard(db, titulo)
 
-    elif value == 'maxima':
-        pressao_atual = db['Pressao'].max()
-        db['linha'] = pressao_atual
-        return dashboard(db, titulo)
-
-    elif value == 'mediana':
-        pressao_atual = db['Pressao'].median()
-        db['linha'] = pressao_atual
-        return dashboard(db, titulo)
-
-    else:
-        value = 'media'
-        pressao_atual = db['Pressao'].mean()
-        db['linha'] = pressao_atual
-        return dashboard(db, titulo)
 
 def dashboard (db, titulo):
     try:
@@ -40,11 +20,11 @@ def dashboard (db, titulo):
         fig1 = px.line(db, x='Data_id', y='Pressao',
                        title=f'{titulo}', height=300)
         fig1.update_traces(line_color='#1EAFE3', hoverlabel_font_color='#FFFFFF')
-        fig1.add_scatter(x=db['Data_id'], y=db['linha'],showlegend=False,line=dict(color="#DCDCDC"))
+
         fig1.update_layout(
             plot_bgcolor=cores['branco'],  # Cor das linhas do grafico
             paper_bgcolor=cores['branco'],  # Cor da moldura
-            font_color=cores['azul'],
+            font_color=cores['preto'],
             xaxis_title="Data",
             yaxis_title="Pressão [mca]",
         )
@@ -81,7 +61,7 @@ def dashboard (db, titulo):
             font_color=cor_do_indicador
         )
 
-        return fig1, pressao, indicador
+        return indicador, pressao, fig1
 
     except:
         return ['Erro' for i in range(3)]

@@ -14,6 +14,7 @@ from flask_login import login_user, logout_user, current_user, LoginManager, Use
 from flask_sqlalchemy import SQLAlchemy
 from chaves import host,port,database,user,password
 
+
 server = app.server
 db = SQLAlchemy(app.server)
 app.config.suppress_callback_exceptions = True
@@ -45,42 +46,28 @@ class Users(UserMixin, Users):
 
 # Página de login
 login =  html.Div([
+    dbc.Row([
             dcc.Location(id='url_login', refresh=True),
-            html.Br(),
-            dbc.Row(
-                [dbc.Col(),
-                 dbc.Col(html.H4('''Bem-vindo!''', id='h1',style={'textAlign': 'center'})),
-                 dbc.Col()]
-            ),
-            html.Br(),
-            dbc.Row([
-                dbc.Col(lg={'size':5}),
-                dbc.Col(dbc.Input(placeholder='Usuário',
-                        type='text',
-                        id='uname-box',style={'textAlign': 'center'})
-                        ,lg={'size':2}),
-                dbc.Col(lg={'size':5})
-                    ]),
-            html.Br(),
-            dbc.Row([
-                 dbc.Col(lg={'size':5}),
-                 dbc.Col(dbc.Input(placeholder='Senha',
-                        type='password',
-                        id='pwd-box',style={'textAlign': 'center'}),lg={'size':2}),
-                 dbc.Col(lg={'size':5})
-                 ]),
-            html.Br(),
-            dbc.Row([
-                dbc.Col(lg={'size':5}),
-                dbc.Col(dbc.Button(children='Acessar',
-                    block= True,
-                    n_clicks=0,
-                    type='submit',
-                    id='login-button',style={'textAlign': 'center'}),lg={'size':2}),
-                dbc.Col(lg={'size':5})
-                    ]),
-            html.Div(children='', id='output-state')
-        ])
+            dbc.Col([
+                    html.Img(id='FM', src=app.get_asset_url('fundomar.png'),width='100%',height='100%'),
+                    html.H1('Bem-vindo a hyd', id= 'hydtext'),
+                    html.H4('Tecnologia iot para saneamento e parques industriais', id= 'hydtext2')
+            ],lg={'size':6}),
+            dbc.Col([
+                html.Br(),
+                html.Br(),
+                dbc.Input(placeholder='Usuário',type='text', id='uname-box',style={'textAlign': 'center','width': '50%','margin-left':'25%'}),
+                html.Br(),
+                dbc.Input(placeholder='Senha',type='password',id='pwd-box',style={'textAlign': 'center','width': '50%','margin-left':'25%'}),
+                html.Br(),
+                dbc.Button(children='Acessar',n_clicks=0,type='submit',id='login-button',outline=True, color='primary',style={'textAlign': 'center','width': '50%','margin-left':'25%'}),
+                html.Br(),
+                html.Br(),
+                html.Img(id='logo_hyd_circular', src=app.get_asset_url('hyd.png')),
+                html.Div(children='', id='output-state')
+                 ],lg={'size':6}),
+            ])
+                ])
 
 # Página de retorno caso o input de usuario ou senha sejam inválidos
 failed = html.Div([ dcc.Location(id='url_login_df', refresh=True),
@@ -95,25 +82,62 @@ failed = html.Div([ dcc.Location(id='url_login_df', refresh=True),
                 ])
         ])
 
-pag_inicial = html.Div([
-                    html.Br(),
-                    html.Div(html.Img(id='S1', src=app.get_asset_url('intro.png'), width='80%',height='auto'),
-                             style={'text-align': 'center',}),
-                    html.Div(html.Img(id='s2', src=app.get_asset_url('s2.png'),width='80%',height='auto' ),
-                             style={'text-align': 'center'}),
-                    html.Div(html.Img(id='s3', src=app.get_asset_url('s3.png'), width='80%',height='auto'),
-                             style={'text-align': 'center'}),
-                    html.Div(html.Img(id='sensor', src=app.get_asset_url('s4.png'), width='80%',height='auto'),
-                    style={'text-align': 'center'}),
-                    html.Div(html.Img(id='s4', src=app.get_asset_url('s5.png'), width='80%',height='auto'),
-                         style={'text-align': 'center'}),
-                    html.Br(),
-                    html.H5('COPYRIGHT © 2021 HYD – TODOS OS DIREITOS RESERVADOS.',style=
-                            {'text-align':'center',
-                             'color':cores['cinza-escuro'],
-                             'font-size':10}),
-                    html.Br()
-                ])
+pag_inicial = html.Div([dbc.Row([
+    dbc.Col([
+        html.Div([
+            html.Img(src=app.get_asset_url('sensor1.jpeg'),id='sensor1_image'),
+            html.Br(),
+            html.H2('Alcance', id='sensor1_title'),
+            html.Br(),
+            html.Span('''
+            Nossos sensores de pressão foram desenvolvidos 
+            com o que há de mais novo no mercado tecnologia iot.
+            O sistema de comunicação via radio frequência Lora e/ou 3g para atender os clientes 
+            mais distantes.
+            ''',id='sensor1_text'),
+
+                ],className='figura1')
+    ],lg={'size':6}),
+    dbc.Col([
+        html.Div([
+            html.Img(src=app.get_asset_url('sensor2.jpeg'),id='sensor2_image'),
+            html.Br(),
+            html.H2('Durabilidade', id='sensor2_title'),
+            html.Br(),
+            html.Span('''
+            Utilizamos baterias de lítio ou painéis solares como fontes de alimentação para nossos sensores, 
+            dessa forma asseguramos uma maior vida útil e sustentabilidade aos projetos.
+            ''',id= 'sensor2_text')
+
+                ],className='figura2')
+    ],lg={'size':6})
+                                ]),
+    dbc.Row([
+        dbc.Col([
+            html.Br(),
+            html.Img(src=app.get_asset_url('mapa.jpeg'),id='sensor1_image'),
+            html.Br(),
+            html.Span('''
+            Mapa indicando os sensores instalados e valor de pressão em tempo real
+            ''',id= 'sensor2_text'),
+            html.Br(),
+            dbc.Button('Mapa',n_clicks=0,href='/Mapas',id='botao_mapa',outline=True, color='primary',style={'textAlign': 'center','width': '50%','margin-left':'25%'}),
+            html.Br()
+        ],lg={'size':6}),
+        dbc.Col([
+            html.Br(),
+            html.Img(src=app.get_asset_url('dashboard.png'),id='sensor1_image'),
+            html.Br(),
+            html.Span('''
+            Dashboard gerencial contendo os principais indicadores sobre a rede de água
+            ''',id= 'sensor2_text'),
+            html.Br(),
+            dbc.Button('dashboard',n_clicks=0,href='/Espinheiros',id='botao_dashboard',outline=True, color='primary',style={'textAlign': 'center','width': '50%','margin-left':'25%'}),
+
+        ],lg={'size':6})
+
+    ])
+])
 
 # Callback para saber qual usuario esta ativo
 @login_manager.user_loader
@@ -158,6 +182,7 @@ def update_output(n_clicks, input1, input2):
         return ''
 
 nav_itens = dbc.NavbarSimple([
+    dbc.NavItem(html.Img(src=app.get_asset_url('hyd.png'),height='40px')),
     dbc.NavItem(dbc.NavLink('Início', href='/Pagina-Inicial')),
     dbc.NavItem(dbc.NavLink('Eficiência',href='/Eficiencia-Energetica')),
     dbc.DropdownMenu([
@@ -167,7 +192,12 @@ nav_itens = dbc.NavbarSimple([
                         ],label='Gestão Água',in_navbar=True,nav=True),
     dbc.NavItem(dbc.NavLink('Mapas',href='/Mapas')),
     dbc.NavItem(dbc.NavLink('Sair', href='/Logout'))
-                    ],id='Navbarsimpletest',brand='hyd sensoriamento',color='primary',dark=True)
+
+                    ],id='Navbarsimpletest',color='white',light=True, sticky='top',brand='hyd tecnologia')
+
+
+
+
 
 # Cria o estilo do dash em html
 app.layout = html.Div(children=[
@@ -178,7 +208,7 @@ app.layout = html.Div(children=[
 
 @app.callback(
     Output(component_id='page_content', component_property='children'),
-    Input(component_id='url',component_property='pathname')
+    Input(component_id='url',component_property='pathname'),
 )
 
 def minha_pagina(pathname):
@@ -193,7 +223,7 @@ def minha_pagina(pathname):
             return 'Erro 404! por favor volte a página inicial'
 
     elif pathname == '/Pagina-Inicial':
-            return pag_inicial
+        return pag_inicial
 
     elif pathname == '/Eficiencia-Energetica':
         if current_user.is_authenticated:

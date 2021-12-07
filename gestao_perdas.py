@@ -28,33 +28,23 @@ layout = dbc.Container([dbc.Row([
         )),
         html.Br(),
         html.Br(),
-        html.H5('Selecione o tipo de pressão:', style={'color':cores['preto'],'font-size':18}),
-        html.Br(),
-        dcc.Dropdown(id= 'pressao_garuva_tipo',
-                                 options=[
-                                    {'label': ' Mínima ', 'value': 'minima'},
-                                    {'label': ' Média ', 'value': 'media'},
-                                    {'label': ' Máxima ', 'value': 'maxima'},
-                                    {'label': ' Mediana ', 'value': 'mediana'}
-                                        ],
-                                 placeholder= 'Pressão média',
-                                 style={'width':'80%'}
-                                    ),
-        html.Br(),
         html.H5('Baixe o arquivo:', style={'color':cores['preto'],'font-size':18}),
         html.Br(),
         dbc.Button('Download excel', id='garuva_excel',color='primary',outline=True),
-                ],lg={'size':4}),
+                ],lg={'size':4},style={'background-color':cores['branco']}),
 
 
     dbc.Col([
             html.Br(),
+            dbc.Row([
+                dbc.Col(dbc.Card(dcc.Graph(id='velocimetro_garuva')),lg={'size':6}),
+                dbc.Col(dbc.Card(dcc.Graph(id='Pressao_media_garuva')),lg={'size':6})
+                    ]),
+            html.Br(),
             dbc.Card(dcc.Graph(id = 'sensor_garuva')),
             html.Br(),
-            dbc.Row([
-                dbc.Col(dbc.Card(dcc.Graph(id='Pressao_media_garuva')),lg={'size':6}),
-                dbc.Col(dbc.Card(dcc.Graph(id='velocimetro_garuva')),lg={'size':6})
-                ])
+
+
             ], lg={'size':8}),
     ]),
     html.Br(),
@@ -68,21 +58,20 @@ layout = dbc.Container([dbc.Row([
 
 @app.callback(
     [
-        Output(component_id='sensor_garuva', component_property='figure'),
+        Output(component_id='velocimetro_garuva', component_property='figure'),
         Output(component_id='Pressao_media_garuva',component_property='figure'),
-        Output(component_id='velocimetro_garuva', component_property='figure')
+        Output(component_id='sensor_garuva', component_property='figure'),
      ],
     [
         Input(component_id='calendario',component_property='start_date'),
         Input(component_id='calendario',component_property='end_date'),
-        Input(component_id='pressao_garuva_tipo',component_property='value'),
         Input(component_id='meu_intervalo', component_property='n_intervals')
 
     ]
             )
 
 # Sempre que houver um INPUT é necessario declarar uma função com um parâmetro para cada INUPT
-def meu_grafico(start_date, end_date,value, n_intervals):
+def meu_grafico(start_date, end_date, n_intervals):
 
     print(start_date)
     print(end_date)
@@ -107,11 +96,11 @@ def meu_grafico(start_date, end_date,value, n_intervals):
         dff2= db_pressao_garuva.loc[start_date:end_date,:]
 
         if len(dff2) > 0:
-            return funcoes.arrumadb(dff2, value, titulo)
+            return funcoes.dashboard(dff2, titulo)
         else:
-            return funcoes.arrumadb(db_pressao_garuva, value, titulo)
+            return funcoes.dashboard(db_pressao_garuva, titulo)
     else:
-        return funcoes.arrumadb(db_pressao_garuva, value, titulo)
+        return funcoes.dashboard(db_pressao_garuva, titulo)
 
 @app.callback(
         Output(component_id='arquivo_garuva_excel',component_property='data'),
